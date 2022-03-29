@@ -5,5 +5,8 @@
   "repository": "git@github.com:ericsakmar/pgh-live-api.git",
   "author": "Eric Sakmar <esakmar@truefit.io>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "dependencies": {
+    "sanitize-html": "^2.7.0"
+  }
 }

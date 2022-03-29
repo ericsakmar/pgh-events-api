@@ -1,14 +1,11 @@
-const spirit = require("../../src/sprirt");
+const spirit = require("./sources/sprirt.js");
 
+// TODO error handling/logging
 const getEvents = async source => await source.getEvents();
 
 exports.handler = async function(_event, _context) {
   const results = await Promise.all([getEvents(spirit)]);
-
-  const events = results
-    .flatMap(r => r)
-    .slice()
-    .sort((a, b) => a.date - b.date);
+  const events = results.flatMap(r => r);
 
   return {
     statusCode: 200,
