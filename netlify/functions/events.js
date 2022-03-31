@@ -11,6 +11,8 @@ const getEvents = async source => {
 };
 
 exports.handler = async function(event, _context) {
+  console.log(event.headers.referrer);
+
   if (
     !(
       process.env.NETLIFY_DEV === "true" ||
