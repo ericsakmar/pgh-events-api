@@ -1,10 +1,28 @@
 const spirit = require("./sources/sprirt.js");
 const smalls = require("./sources/smalls.js");
 
-// TODO error handling/logging
-const getEvents = async source => await source.getEvents();
+const getEvents = async source => {
+  try {
+    return await source.getEvents();
+  } catch (e) {
+    console.error(e);
+  }
+};
 
-exports.handler = async function(_event, _context) {
+exports.handler = async function(event, _context) {
+  if (
+    !(
+      process.env.NETLIFY_DEV === "true" ||
+      (event.headers.referrer &&
+        event.headers.referrer.includes("pgh-live.netlify.app"))
+    )
+  ) {
+    return {
+      statusCode: 401,
+      body: JSON.stringify("Unauthorized")
+    };
+  }
+
   const results = await Promise.all([getEvents(spirit), getEvents(smalls)]);
   const events = results.flatMap(r => r);
 
