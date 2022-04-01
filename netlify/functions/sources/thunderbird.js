@@ -75,7 +75,7 @@ exports.getEvents = async () => {
 
       return {
         title,
-        date: date.getTime(),
+        date: date.toUTCString(),
         location,
         link,
         source: "THUNDERBIRD"

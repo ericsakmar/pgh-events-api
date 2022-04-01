@@ -32,11 +32,6 @@ exports.getEvents = async () => {
         .text()
         .trim();
 
-      // const description = n
-      //   .find(".more-information")
-      //   .text()
-      //   .trim();
-
       const rawDate = n
         .find(".date-show")
         .attr("content")
@@ -46,7 +41,7 @@ exports.getEvents = async () => {
         rawDate,
         "MMMM d',' yyyy h':'mm aaa",
         new Date()
-      ).getTime();
+      ).toISOString();
 
       const location = n
         .find(".venue-location-name")
