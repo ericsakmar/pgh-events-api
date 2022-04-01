@@ -13,7 +13,7 @@ const getData = async () => {
   const waitForSelector = ".eo-eb-event-box";
 
   const data = await fetchDynamicPage.fetchDynamicPage(url, waitForSelector);
-  fs.writeFileSync("./test/brillo.html", data);
+  // fs.writeFileSync("./test/brillo.html", data);
 
   return data;
 };
