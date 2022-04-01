@@ -1,6 +1,7 @@
 const fs = require("fs");
 const fetch = require("node-fetch");
 const cheerio = require("cheerio");
+const { fetchDynamicPage } = require("../fetchDynamicPage");
 
 const getData = async () => {
   if (process.env.NETLIFY_DEV === "true") {
@@ -8,20 +9,12 @@ const getData = async () => {
     return local;
   }
 
-  const res = await fetch(
-    "https://pgh-events-api.netlify.app/.netlify/functions/page",
-    {
-      method: "GET",
-      headers: {
-        Authorization: process.env.CLIENT_SECRET
-      }
-    }
-  );
-  const body = await res.text();
+  const url = "https://blackforgecoffee.com/pages/events";
+  const waitForSelector = ".eaec-grid-item-info";
 
-  // fs.writeFileSync("./netlify/functions/sources/blackforge.html", content);
+  const data = fetchDynamicPage(url, waitForSelector);
 
-  return body;
+  return data;
 };
 
 exports.getEvents = async () => {
