@@ -38,6 +38,8 @@ exports.getEvents = async () => {
         .trim();
 
       const date = chrono.parseDate(rawDate, { timezone: "EDT" });
+      const d2 = chrono.parseDate(rawDate);
+      console.log(date, d2);
 
       const location = n
         .find(".venue-location-name")
@@ -49,7 +51,7 @@ exports.getEvents = async () => {
         .attr("href")
         .trim();
 
-      return { title, date, location, link, source: "SMALLS" };
+      return { title, date, d2, location, link, source: "SMALLS" };
     });
 
   return events;
