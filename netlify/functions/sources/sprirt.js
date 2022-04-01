@@ -52,11 +52,12 @@ exports.getEvents = async () => {
         .text()
         .trim();
 
-      // const link = n
-      //   .find(".more-info")
-      //   .attr("href")
-      //   .trim();
-      const link = "TODO";
+      const rawLink = n
+        .find(".main-image-wrapper a")
+        .attr("href")
+        .trim();
+
+      const link = `https://spiritpgh.com${rawLink}`;
 
       return { title, date, location, link, source: "SPIRIT" };
     });

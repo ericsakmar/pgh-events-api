@@ -1,6 +1,7 @@
 const spirit = require("./sources/sprirt.js");
 const smalls = require("./sources/smalls.js");
 const thunderbird = require("./sources/thunderbird.js");
+const blackforge = require("./sources/blackforge.js");
 require("dotenv").config();
 
 const getEvents = async source => {
@@ -22,7 +23,8 @@ exports.handler = async function(event, _context) {
   const results = await Promise.all([
     getEvents(spirit),
     getEvents(smalls),
-    getEvents(thunderbird)
+    getEvents(thunderbird),
+    getEvents(blackforge)
   ]);
 
   const events = results.flatMap(r => r);

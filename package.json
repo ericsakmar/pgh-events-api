@@ -11,6 +11,7 @@
     "chrono-node": "^2.3.8",
     "date-fns": "^2.28.0",
     "dotenv": "^16.0.0",
-    "node-fetch": "2"
+    "node-fetch": "2",
+    "puppeteer": "^13.5.2"
   }
 }
