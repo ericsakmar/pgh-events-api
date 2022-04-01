@@ -4,15 +4,15 @@ const fetch = require("node-fetch");
 
 const getData = async () => {
   if (process.env.NETLIFY_DEV === "true") {
-    const local = fs.readFileSync("./test/roxian.html").toString();
+    const local = fs.readFileSync("./test/clubcafe.html").toString();
     return local;
   }
 
   const res = await fetch(
-    "https://www.livenation.com/venue/KovZ917Ax13/roxian-theatre-events"
+    "https://www.ticketweb.com/venue/club-cafe-pittsburgh-pa/23219?pl=opusfood.php"
   );
   const body = await res.text();
-  // fs.writeFileSync("./test/roxian.html", body);
+  // fs.writeFileSync("./test/clubcafe.html", body);
   return body;
 };
 
@@ -28,14 +28,17 @@ exports.getEvents = async () => {
       const json = JSON.parse(ldJson);
       return json;
     })
-    .filter(event => event["@type"] === "MusicEvent")
-    .map(event => ({
-      title: event.name,
-      date: event.startDate,
-      location: event.location.name,
-      link: event.url,
-      source: "ROXIAN"
-    }));
+    .flatMap(events => events)
+    .filter(event => event["@type"] === "TheaterEvent")
+    .map(event => {
+      return {
+        title: event.name,
+        date: event.startDate,
+        location: event.location.name,
+        link: event.url,
+        source: "CLUBCAFE"
+      };
+    });
 
   return events;
 };
