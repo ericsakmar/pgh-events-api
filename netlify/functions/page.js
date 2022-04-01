@@ -10,6 +10,8 @@ const getEvents = async source => {
   }
 };
 
+// we need to keep the puppeteer stuff in a seprate function because it makes
+// the bundle size too big
 exports.handler = async function(event, _context) {
   if (event.headers.authorization !== process.env.CLIENT_SECRET) {
     return {

@@ -7,9 +7,17 @@ const getData = async () => {
     return local;
   }
 
+  const res = await fetch("/.netlify/functions/page", {
+    method: "GET",
+    headers: {
+      Authorization: process.env.CLIENT_SECRET
+    }
+  });
+  const body = await res.text();
+
   // fs.writeFileSync("./netlify/functions/sources/blackforge.html", content);
 
-  return content;
+  return body;
 };
 
 exports.getEvents = async () => {
