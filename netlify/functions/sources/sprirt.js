@@ -1,12 +1,10 @@
 const fs = require("fs");
 const cheerio = require("cheerio");
-const { parse } = require("date-fns");
 const fetch = require("node-fetch");
 const chrono = require("chrono-node");
 
 const getData = async () => {
   if (process.env.NETLIFY_DEV === "true") {
-    console.log("local");
     const local = fs
       .readFileSync("./netlify/functions/sources/spirit.html")
       .toString();
@@ -45,7 +43,9 @@ exports.getEvents = async () => {
         .trim()
         .split(" ")[0];
 
-      const date = chrono.parseDate(`${rawDate} ${rawTime}`);
+      const date = chrono.parseDate(`${rawDate} ${rawTime}`, {
+        timezone: "EDT"
+      });
 
       const location = n
         .find(".eventlist-meta-address strong")

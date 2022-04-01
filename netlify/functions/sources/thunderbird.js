@@ -1,6 +1,5 @@
 const fs = require("fs");
 const cheerio = require("cheerio");
-const { parse } = require("date-fns");
 const fetch = require("node-fetch");
 const chrono = require("chrono-node");
 
@@ -61,7 +60,7 @@ exports.getEvents = async () => {
 
       const rawDate = `${day} ${year} at ${time}`;
 
-      const date = chrono.parseDate(rawDate);
+      const date = chrono.parseDate(rawDate, { timezone: "EDT" });
 
       const location = n
         .find(".venueLink")

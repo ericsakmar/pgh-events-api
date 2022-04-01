@@ -1,7 +1,7 @@
 const fs = require("fs");
 const cheerio = require("cheerio");
-const { parse } = require("date-fns");
 const fetch = require("node-fetch");
+const chrono = require("chrono-node");
 
 const getData = async () => {
   if (process.env.NETLIFY_DEV === "true") {
@@ -37,11 +37,7 @@ exports.getEvents = async () => {
         .attr("content")
         .trim();
 
-      const date = parse(
-        rawDate,
-        "MMMM d',' yyyy h':'mm aaa",
-        new Date()
-      ).toISOString();
+      const date = chrono.parseDate(rawDate, { timezone: "EDT" });
 
       const location = n
         .find(".venue-location-name")
