@@ -1,28 +1,28 @@
 const fs = require("fs");
 const cheerio = require("cheerio");
-const chromium = require("chrome-aws-lambda");
+// const chromium = require("chrome-aws-lambda");
 
 const getData = async () => {
-  if (process.env.NETLIFY_DEV === "true") {
-    const local = fs.readFileSync("./test/blackforge.html").toString();
-    return local;
-  }
+  // if (process.env.NETLIFY_DEV === "true") {
+  const local = fs.readFileSync("./test/blackforge.html").toString();
+  return local;
+  // }
 
-  const browser = await chromium.puppeteer.launch({
-    executablePath: await chromium.executablePath,
-    args: chromium.args,
-    defaultViewport: chromium.defaultViewport,
-    headless: chromium.headless
-  });
-  const page = await browser.newPage();
-  await page.goto("https://blackforgecoffee.com/pages/events");
-  await page.waitForSelector(".eaec-grid-item-info");
-  const content = await page.content();
-  await browser.close();
+  // const browser = await chromium.puppeteer.launch({
+  //   executablePath: await chromium.executablePath,
+  //   args: chromium.args,
+  //   defaultViewport: chromium.defaultViewport,
+  //   headless: chromium.headless
+  // });
+  // const page = await browser.newPage();
+  // await page.goto("https://blackforgecoffee.com/pages/events");
+  // await page.waitForSelector(".eaec-grid-item-info");
+  // const content = await page.content();
+  // await browser.close();
 
   // fs.writeFileSync("./netlify/functions/sources/blackforge.html", content);
 
-  return content;
+  // return content;
 };
 
 exports.getEvents = async () => {
