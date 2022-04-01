@@ -1,15 +1,19 @@
 const fs = require("fs");
 const cheerio = require("cheerio");
-const puppeteer = require("puppeteer");
+const chromium = require("chrome-aws-lambda");
 
 const getData = async () => {
   if (process.env.NETLIFY_DEV === "true") {
     const local = fs.readFileSync("./test/blackforge.html").toString();
-
     return local;
   }
 
-  const browser = await puppeteer.launch();
+  const browser = await chromium.puppeteer.launch({
+    executablePath: await chromium.executablePath,
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    headless: chromium.headless
+  });
   const page = await browser.newPage();
   await page.goto("https://blackforgecoffee.com/pages/events");
   await page.waitForSelector(".eaec-grid-item-info");
