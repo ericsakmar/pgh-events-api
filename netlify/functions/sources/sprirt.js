@@ -5,9 +5,7 @@ const chrono = require("chrono-node");
 
 const getData = async () => {
   if (process.env.NETLIFY_DEV === "true") {
-    const local = fs
-      .readFileSync("./netlify/functions/sources/spirit.html")
-      .toString();
+    const local = fs.readFileSync("./test/spirit.html").toString();
 
     return local;
   }

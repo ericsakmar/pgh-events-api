@@ -5,9 +5,7 @@ const chrono = require("chrono-node");
 
 const getData = async () => {
   if (process.env.NETLIFY_DEV === "true") {
-    const local = fs
-      .readFileSync("./netlify/functions/sources/thunderbird.html")
-      .toString();
+    const local = fs.readFileSync("./test/thunderbird.html").toString();
 
     return local;
   }

@@ -4,9 +4,7 @@ const puppeteer = require("puppeteer");
 
 const getData = async () => {
   if (process.env.NETLIFY_DEV === "true") {
-    const local = fs
-      .readFileSync("./netlify/functions/sources/blackforge.html")
-      .toString();
+    const local = fs.readFileSync("./test/blackforge.html").toString();
 
     return local;
   }
