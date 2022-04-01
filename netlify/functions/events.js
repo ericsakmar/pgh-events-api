@@ -1,9 +1,11 @@
 const blackforge = require("./sources/blackforge.js");
 const brillo = require("./sources/brillo.js");
+const preserving = require("./sources/preserving.js");
 const roboto = require("./sources/roboto.js");
 const smalls = require("./sources/smalls.js");
 const spirit = require("./sources/sprirt.js");
 const thunderbird = require("./sources/thunderbird.js");
+
 require("dotenv").config();
 
 const getEvents = async source => {
@@ -25,6 +27,7 @@ exports.handler = async function(event, _context) {
   const results = await Promise.all([
     getEvents(blackforge),
     getEvents(brillo),
+    getEvents(preserving),
     getEvents(roboto),
     getEvents(smalls),
     getEvents(spirit),
