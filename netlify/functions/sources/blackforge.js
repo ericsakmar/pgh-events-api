@@ -1,5 +1,4 @@
 const fs = require("fs");
-const fetch = require("node-fetch");
 const cheerio = require("cheerio");
 const fetchDynamicPage = require("./fetchDynamicPage");
 
@@ -12,7 +11,7 @@ const getData = async () => {
   const url = "https://blackforgecoffee.com/pages/events";
   const waitForSelector = ".eaec-grid-item-info";
 
-  const data = fetchDynamicPage(url, waitForSelector);
+  const data = await fetchDynamicPage.fetchDynamicPage(url, waitForSelector);
 
   return data;
 };
@@ -34,6 +33,7 @@ exports.getEvents = async () => {
       title: event.name,
       date: event.startDate,
       location: event.location.name,
+      link: "https://blackforgecoffee.com/pages/events",
       source: "BLACKFORGE"
     }));
 
