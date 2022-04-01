@@ -1,7 +1,7 @@
 const fs = require("fs");
 const cheerio = require("cheerio");
 const fetch = require("node-fetch");
-// const chrono = require("chrono-node");
+const chrono = require("chrono-node");
 
 const getData = async () => {
   if (process.env.NETLIFY_DEV === "true") {
