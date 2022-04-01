@@ -1,6 +1,8 @@
 const blackforge = require("./sources/blackforge.js");
 const brillo = require("./sources/brillo.js");
 const clubcafe = require("./sources/clubcafe.js");
+const conAlmaDowntown = require("./sources/conalmaDowntown.js");
+const conAlmaEllsworth = require("./sources/conalmaEllsworth.js");
 const kingfly = require("./sources/kingfly.js");
 const preserving = require("./sources/preserving.js");
 const roboto = require("./sources/roboto.js");
@@ -31,6 +33,8 @@ exports.handler = async function(event, _context) {
     getEvents(blackforge),
     getEvents(brillo),
     getEvents(clubcafe),
+    getEvents(conAlmaDowntown),
+    getEvents(conAlmaEllsworth),
     getEvents(kingfly),
     getEvents(preserving),
     getEvents(roboto),
