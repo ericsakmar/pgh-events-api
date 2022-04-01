@@ -1,7 +1,7 @@
 const fs = require("fs");
 const fetch = require("node-fetch");
 const cheerio = require("cheerio");
-const { fetchDynamicPage } = require("../fetchDynamicPage");
+const fetchDynamicPage = require("./fetchDynamicPage");
 
 const getData = async () => {
   if (process.env.NETLIFY_DEV === "true") {
