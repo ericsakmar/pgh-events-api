@@ -21,7 +21,7 @@ exports.handler = async function(event, _context) {
 
   const page = await browser.newPage();
   await page.goto(url);
-  await page.waitForSelector(selector);
+  await page.waitForSelector(selector, { timeout: 6000 });
   const content = await page.content();
   await browser.close();
 
