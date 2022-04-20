@@ -49,7 +49,8 @@ exports.getEvents = async () => {
         date,
         location,
         link: `https://www.thegovernmentcenter.com${link}`,
-        source: "GOVERNMENTCENTER"
+        source: "GOVERNMENTCENTER",
+        hasTime: false
       };
     });
 

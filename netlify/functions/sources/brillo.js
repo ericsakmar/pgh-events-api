@@ -47,7 +47,14 @@ exports.getEvents = async () => {
         .attr("href")
         .trim();
 
-      return { title, date, location, link, source: "BRILLO" };
+      return {
+        title,
+        date,
+        location,
+        link,
+        source: "BRILLO",
+        hasTime: false // you may be able to get it from the event description
+      };
     });
 
   return events;

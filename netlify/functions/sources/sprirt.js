@@ -57,7 +57,7 @@ exports.getEvents = async () => {
 
       const link = `https://spiritpgh.com${rawLink}`;
 
-      return { title, date, location, link, source: "SPIRIT" };
+      return { title, date, location, link, source: "SPIRIT", hasTime: true };
     });
 
   return events;

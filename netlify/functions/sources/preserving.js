@@ -44,7 +44,14 @@ exports.getEvents = async () => {
         .attr("href")
         .trim();
 
-      return { title, date, location, link, source: "PRESERVING" };
+      return {
+        title,
+        date,
+        location,
+        link,
+        source: "PRESERVING",
+        hasTime: true
+      };
     });
 
   return events;

@@ -56,7 +56,8 @@ exports.getEvents = async () => {
         date,
         location,
         link: `https://www.conalmapgh.com${link}`,
-        source: "CONALMADOWNTOWN"
+        source: "CONALMADOWNTOWN",
+        hasTime: true
       };
     });
 

@@ -34,7 +34,8 @@ exports.getEvents = async () => {
       date: event.startDate,
       location: event.location.name,
       link: event.url,
-      source: "ROXIAN"
+      source: "ROXIAN",
+      hasTime: true
     }));
 
   return events;

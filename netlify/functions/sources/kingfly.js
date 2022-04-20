@@ -50,7 +50,8 @@ exports.getEvents = async () => {
         date,
         location,
         link: `https://www.kingflyspirits.com${link}`,
-        source: "KINGFLY"
+        source: "KINGFLY",
+        hasTime: false
       };
     });
 

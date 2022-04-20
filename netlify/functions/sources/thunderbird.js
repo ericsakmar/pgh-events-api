@@ -75,7 +75,8 @@ exports.getEvents = async () => {
         date: date.toUTCString(),
         location,
         link,
-        source: "THUNDERBIRD"
+        source: "THUNDERBIRD",
+        hasTime: true
       };
     });
 

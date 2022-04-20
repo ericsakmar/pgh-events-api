@@ -36,7 +36,8 @@ exports.getEvents = async () => {
         date: event.startDate,
         location: event.location.name,
         link: event.url,
-        source: "CLUBCAFE"
+        source: "CLUBCAFE",
+        hasTime: true
       };
     });
 

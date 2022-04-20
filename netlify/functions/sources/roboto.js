@@ -49,7 +49,7 @@ exports.getEvents = async () => {
         .attr("href")
         .trim();
 
-      return { title, date, location, link, source: "ROBOTO" };
+      return { title, date, location, link, source: "ROBOTO", hasTime: true };
     });
 
   return events;

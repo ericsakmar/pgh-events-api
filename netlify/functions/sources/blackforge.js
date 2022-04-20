@@ -34,7 +34,8 @@ exports.getEvents = async () => {
       date: event.startDate,
       location: event.location.name,
       link: "https://blackforgecoffee.com/pages/events",
-      source: "BLACKFORGE"
+      source: "BLACKFORGE",
+      hasTime: true
     }));
 
   return events;
