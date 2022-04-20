@@ -1,3 +1,4 @@
+const belvederes = require("./sources/belvederes.js");
 const blackforge = require("./sources/blackforge.js");
 const brillo = require("./sources/brillo.js");
 const clubcafe = require("./sources/clubcafe.js");
@@ -31,6 +32,7 @@ exports.handler = async function(event, _context) {
   }
 
   const results = await Promise.all([
+    getEvents(belvederes),
     getEvents(blackforge),
     getEvents(brillo),
     getEvents(clubcafe),
