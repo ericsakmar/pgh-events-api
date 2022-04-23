@@ -13,6 +13,23 @@ exports.handler = async function(event, _context) {
 
   const { url, selector } = event.queryStringParameters;
 
+  try {
+    const content = await getPageContent(url, selector);
+
+    return {
+      statusCode: 200,
+      body: content
+    };
+  } catch {
+    // timeout
+    return {
+      statusCode: 408,
+      body: JSON.stringify({ message: `Timeout expired for ${url}` })
+    };
+  }
+};
+
+const getPageContent = async (url, selector) => {
   const browser = await puppeteer.launch({
     args: chromium.args,
     executablePath: await chromium.executablePath,
@@ -20,13 +37,11 @@ exports.handler = async function(event, _context) {
   });
 
   const page = await browser.newPage();
+  page.setDefaultTimeout(7000);
   await page.goto(url);
-  await page.waitForSelector(selector, { timeout: 6000 });
+  await page.waitForSelector(selector);
   const content = await page.content();
   await browser.close();
 
-  return {
-    statusCode: 200,
-    body: content
-  };
+  return content;
 };
