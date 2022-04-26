@@ -1,23 +1,11 @@
-const fs = require("fs");
 const cheerio = require("cheerio");
 const fetchDynamicPage = require("./fetchDynamicPage");
 
-const getData = async () => {
-  if (process.env.NETLIFY_DEV === "true") {
-    const local = fs.readFileSync("./test/blackforge.html").toString();
-    return local;
-  }
-
-  const url = "https://blackforgecoffee.com/pages/events";
-  const waitForSelector = ".eaec-grid-item-info";
-
-  const data = await fetchDynamicPage.fetchDynamicPage(url, waitForSelector);
-
-  return data;
-};
+const url = "https://blackforgecoffee.com/pages/events";
+const waitForSelector = ".eaec-grid-item-info";
 
 exports.getEvents = async () => {
-  const data = await getData();
+  const data = await fetchDynamicPage.fetchDynamicPage(url, waitForSelector);
 
   const $ = cheerio.load(data);
 
@@ -34,7 +22,7 @@ exports.getEvents = async () => {
       date: event.startDate,
       location: event.location.name,
       link: "https://blackforgecoffee.com/pages/events",
-      source: "BLACKFORGE",
+      source: url,
       hasTime: true
     }));
 

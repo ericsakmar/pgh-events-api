@@ -1,23 +1,11 @@
-const fs = require("fs");
 const cheerio = require("cheerio");
-const fetch = require("node-fetch");
 const chrono = require("chrono-node");
+const fetchPage = require("./fetchPage");
 
-const getData = async () => {
-  if (process.env.NETLIFY_DEV === "true") {
-    const local = fs.readFileSync("./test/roboto.html").toString();
-    return local;
-  }
-
-  const res = await fetch("https://www.therobotoproject.com/calendar.html");
-  const body = await res.text();
-
-  // fs.writeFileSync("./test/roboto.html", body);
-  return body;
-};
+const url = "https://www.therobotoproject.com/calendar.html";
 
 exports.getEvents = async () => {
-  const data = await getData();
+  const data = await fetchPage.fetchPage(url);
 
   const $ = cheerio.load(data);
 
@@ -49,7 +37,7 @@ exports.getEvents = async () => {
         .attr("href")
         .trim();
 
-      return { title, date, location, link, source: "ROBOTO", hasTime: true };
+      return { title, date, location, link, source: url, hasTime: true };
     });
 
   return events;

@@ -1,22 +1,11 @@
-const fs = require("fs");
 const cheerio = require("cheerio");
-const fetch = require("node-fetch");
 const chrono = require("chrono-node");
+const fetchPage = require("./fetchPage");
 
-const getData = async () => {
-  if (process.env.NETLIFY_DEV === "true") {
-    const local = fs.readFileSync("./test/thunderbird.html").toString();
-
-    return local;
-  }
-
-  const res = await fetch("https://thunderbirdmusichall.com/shows/?view=list");
-  const body = await res.text();
-  return body;
-};
+const url = "https://thunderbirdmusichall.com/shows/?view=list";
 
 exports.getEvents = async () => {
-  const data = await getData();
+  const data = await fetchPage.fetchPage(url);
 
   const $ = cheerio.load(data);
 
@@ -75,7 +64,7 @@ exports.getEvents = async () => {
         date: date.toUTCString(),
         location,
         link,
-        source: "THUNDERBIRD",
+        source: url,
         hasTime: true
       };
     });

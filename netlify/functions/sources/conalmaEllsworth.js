@@ -1,22 +1,11 @@
-const fs = require("fs");
 const cheerio = require("cheerio");
-const fetch = require("node-fetch");
 const chrono = require("chrono-node");
+const fetchPage = require("./fetchPage");
 
-const getData = async () => {
-  if (process.env.NETLIFY_DEV === "true") {
-    const local = fs.readFileSync("./test/conalmaEllsworth.html").toString();
-    return local;
-  }
-
-  const res = await fetch("https://www.conalmapgh.com/ellsworth-events");
-  const body = await res.text();
-  // fs.writeFileSync("./test/conalmaEllsworth.html", body);
-  return body;
-};
+const url = "https://www.conalmapgh.com/ellsworth-events";
 
 exports.getEvents = async () => {
-  const data = await getData();
+  const data = await fetchPage.fetchPage(url);
 
   const $ = cheerio.load(data);
 
@@ -56,7 +45,7 @@ exports.getEvents = async () => {
         date,
         location,
         link: `https://www.conalmapgh.com${link}`,
-        source: "CONALMAELLSWORTH",
+        source: url,
         hasTime: true
       };
     });

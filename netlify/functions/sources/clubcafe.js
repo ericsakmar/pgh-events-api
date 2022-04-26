@@ -1,23 +1,12 @@
 const fs = require("fs");
 const cheerio = require("cheerio");
-const fetch = require("node-fetch");
+const fetchPage = require("./fetchPage");
 
-const getData = async () => {
-  if (process.env.NETLIFY_DEV === "true") {
-    const local = fs.readFileSync("./test/clubcafe.html").toString();
-    return local;
-  }
-
-  const res = await fetch(
-    "https://www.ticketweb.com/venue/club-cafe-pittsburgh-pa/23219?pl=opusfood.php"
-  );
-  const body = await res.text();
-  // fs.writeFileSync("./test/clubcafe.html", body);
-  return body;
-};
+const url =
+  "https://www.ticketweb.com/venue/club-cafe-pittsburgh-pa/23219?pl=opusfood.php";
 
 exports.getEvents = async () => {
-  const data = await getData();
+  const data = await fetchPage.fetchPage(url);
 
   const $ = cheerio.load(data);
 
@@ -36,7 +25,7 @@ exports.getEvents = async () => {
         date: event.startDate,
         location: event.location.name,
         link: event.url,
-        source: "CLUBCAFE",
+        source: url,
         hasTime: true
       };
     });

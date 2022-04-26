@@ -1,21 +1,11 @@
-const fs = require("fs");
 const cheerio = require("cheerio");
-const fetch = require("node-fetch");
 const chrono = require("chrono-node");
+const fetchPage = require("./fetchPage");
 
-const getData = async () => {
-  // if (process.env.NETLIFY_DEV === "true") {
-  //   const local = fs.readFileSync("./test/belvederes.html").toString();
-  //   return local;
-  // }
-
-  const res = await fetch("http://belvederesultradive.com/");
-  const body = await res.text();
-  return body;
-};
+const url = "http://belvederesultradive.com/";
 
 exports.getEvents = async () => {
-  const data = await getData();
+  const data = await fetchPage.fetchPage(url);
 
   const $ = cheerio.load(data);
 
@@ -45,7 +35,7 @@ exports.getEvents = async () => {
         date,
         location,
         link,
-        source: "BELVEDERES",
+        source: url,
         hasTime: false // 9pm, or in the event description
       };
     })

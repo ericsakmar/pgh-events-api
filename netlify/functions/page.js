@@ -37,6 +37,7 @@ const getPageContent = async (url, selector) => {
   });
 
   const page = await browser.newPage();
+  page.setDefaultNavigationTimeout(7000);
   page.setDefaultTimeout(7000);
   await page.goto(url);
   await page.waitForSelector(selector);

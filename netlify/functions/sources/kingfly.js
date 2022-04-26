@@ -1,22 +1,17 @@
-const fs = require("fs");
 const cheerio = require("cheerio");
-const fetch = require("node-fetch");
 const chrono = require("chrono-node");
+const fetchPage = require("./fetchPage");
+
+const url = "https://www.kingflyspirits.com/events";
 
 const getData = async () => {
-  if (process.env.NETLIFY_DEV === "true") {
-    const local = fs.readFileSync("./test/kingfly.html").toString();
-    return local;
-  }
-
-  const res = await fetch("https://www.kingflyspirits.com/events");
+  const res = await fetch(url);
   const body = await res.text();
-  // fs.writeFileSync("./test/kingfly.html", body);
   return body;
 };
 
 exports.getEvents = async () => {
-  const data = await getData();
+  const data = await fetchPage.fetchPage(url);
 
   const $ = cheerio.load(data);
 
@@ -50,7 +45,7 @@ exports.getEvents = async () => {
         date,
         location,
         link: `https://www.kingflyspirits.com${link}`,
-        source: "KINGFLY",
+        source: url,
         hasTime: false
       };
     });

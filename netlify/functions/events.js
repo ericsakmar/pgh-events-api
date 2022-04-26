@@ -1,3 +1,5 @@
+const fetch = require("node-fetch");
+
 const belvederes = require("./sources/belvederes.js");
 const blackforge = require("./sources/blackforge.js");
 const brillo = require("./sources/brillo.js");
@@ -15,12 +17,21 @@ const thunderbird = require("./sources/thunderbird.js");
 
 require("dotenv").config();
 
-const getEvents = async source => {
+const getEventsWithBackup = backup => async source => {
   try {
     return await source.getEvents();
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(error);
+
+    const old = backup.filter(event => event.source === error.url);
+    return old;
   }
+};
+
+const getCurrent = async () => {
+  const res = await fetch("https://pgh.events/page-data/index/page-data.json");
+  const pageData = await res.json();
+  return pageData.result.data.allEvents.edges.map(e => e.node);
 };
 
 exports.handler = async function(event, _context) {
@@ -30,6 +41,9 @@ exports.handler = async function(event, _context) {
       body: JSON.stringify({ message: "forbidden" })
     };
   }
+
+  const backup = await getCurrent();
+  const getEvents = getEventsWithBackup(backup);
 
   const results = await Promise.all([
     getEvents(belvederes),

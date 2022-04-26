@@ -1,4 +1,3 @@
-const fs = require("fs");
 const fetch = require("node-fetch");
 
 exports.fetchDynamicPage = async (url, waitForSelector) => {
@@ -15,5 +14,16 @@ exports.fetchDynamicPage = async (url, waitForSelector) => {
   );
 
   const body = await res.text();
-  return body;
+
+  if (res.ok) {
+    return body;
+  }
+
+  const error = {
+    code: res.status,
+    url,
+    body
+  };
+
+  throw error;
 };

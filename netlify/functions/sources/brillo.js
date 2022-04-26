@@ -1,25 +1,12 @@
-const fs = require("fs");
 const cheerio = require("cheerio");
-const fetchDynamicPage = require("./fetchDynamicPage");
 const chrono = require("chrono-node");
+const fetchDynamicPage = require("./fetchDynamicPage");
 
-const getData = async () => {
-  if (process.env.NETLIFY_DEV === "true") {
-    const local = fs.readFileSync("./test/brillo.html").toString();
-    return local;
-  }
-
-  const url = "http://www.brilloboxpgh.com/events/";
-  const waitForSelector = ".eo-eb-event-box";
-
-  const data = await fetchDynamicPage.fetchDynamicPage(url, waitForSelector);
-  // fs.writeFileSync("./test/brillo.html", data);
-
-  return data;
-};
+const url = "http://www.brilloboxpgh.com/events/";
+const waitForSelector = ".eo-eb-event-box";
 
 exports.getEvents = async () => {
-  const data = await getData();
+  const data = await fetchDynamicPage.fetchDynamicPage(url, waitForSelector);
 
   const $ = cheerio.load(data);
 
@@ -52,7 +39,7 @@ exports.getEvents = async () => {
         date,
         location,
         link,
-        source: "BRILLO",
+        source: url,
         hasTime: false // you may be able to get it from the event description
       };
     });

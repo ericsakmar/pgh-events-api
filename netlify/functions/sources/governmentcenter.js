@@ -1,22 +1,11 @@
-const fs = require("fs");
 const cheerio = require("cheerio");
-const fetch = require("node-fetch");
 const chrono = require("chrono-node");
+const fetchPage = require("./fetchPage");
 
-const getData = async () => {
-  if (process.env.NETLIFY_DEV === "true") {
-    const local = fs.readFileSync("./test/governmentCenter.html").toString();
-    return local;
-  }
-
-  const res = await fetch("https://www.thegovernmentcenter.com/events");
-  const body = await res.text();
-  // fs.writeFileSync("./test/governmentCenter.html", body);
-  return body;
-};
+const url = "https://www.thegovernmentcenter.com/events";
 
 exports.getEvents = async () => {
-  const data = await getData();
+  const data = await fetchPage.fetchPage(url);
 
   const $ = cheerio.load(data);
 
@@ -49,7 +38,7 @@ exports.getEvents = async () => {
         date,
         location,
         link: `https://www.thegovernmentcenter.com${link}`,
-        source: "GOVERNMENTCENTER",
+        source: url,
         hasTime: false
       };
     });
