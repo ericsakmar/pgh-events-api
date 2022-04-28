@@ -8,6 +8,7 @@ const conAlmaDowntown = require("./sources/conalmaDowntown.js");
 const conAlmaEllsworth = require("./sources/conalmaEllsworth.js");
 const crafthouse = require("./sources/crafthouse.js");
 const governmentCenter = require("./sources/governmentcenter.js");
+const jergels = require("./sources/jergels.js");
 const kingfly = require("./sources/kingfly.js");
 const preserving = require("./sources/preserving.js");
 const roboto = require("./sources/roboto.js");
@@ -56,6 +57,7 @@ exports.handler = async function(event, _context) {
     getEvents(conAlmaEllsworth),
     getEvents(crafthouse),
     getEvents(governmentCenter),
+    getEvents(jergels),
     getEvents(kingfly),
     getEvents(preserving),
     getEvents(roboto),
