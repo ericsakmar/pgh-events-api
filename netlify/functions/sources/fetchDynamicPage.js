@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 const AbortController = require("abort-controller");
 
-exports.fetchDynamicPage = async (url, waitForSelector) => {
+const getPage = async (url, waitForSelector) => {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), 9000);
 
@@ -19,6 +19,24 @@ exports.fetchDynamicPage = async (url, waitForSelector) => {
   );
 
   clearTimeout(id);
+
+  return res;
+};
+
+exports.fetchDynamicPage = async (url, waitForSelector) => {
+  let res;
+
+  try {
+    res = await getPage(url, waitForSelector);
+  } catch (exception) {
+    const error = {
+      exception,
+      url,
+      body
+    };
+
+    throw error;
+  }
 
   const body = await res.text();
 
