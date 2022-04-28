@@ -31,8 +31,7 @@ exports.fetchDynamicPage = async (url, waitForSelector) => {
   } catch (exception) {
     const error = {
       exception,
-      url,
-      body
+      url
     };
 
     throw error;

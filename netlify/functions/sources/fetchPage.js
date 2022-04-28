@@ -6,7 +6,10 @@ const getPage = async url => {
   const id = setTimeout(() => controller.abort(), 8000);
 
   const res = await fetch(url, {
-    signal: controller.signal
+    signal: controller.signal,
+    headers: {
+      "User-Agent": "node-fetch"
+    }
   });
 
   clearTimeout(id);
@@ -21,8 +24,7 @@ exports.fetchPage = async url => {
   } catch (exception) {
     const error = {
       exception,
-      url,
-      body
+      url
     };
 
     throw error;

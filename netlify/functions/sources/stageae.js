@@ -1,11 +1,11 @@
 const cheerio = require("cheerio");
 const chrono = require("chrono-node");
-const fetchDynamicPage = require("./fetchDynamicPage");
+const fetchPage = require("./fetchPage");
 
 const url = "https://promowestlive.com/pittsburgh/stage-ae";
 
 exports.getEvents = async () => {
-  const data = await fetchDynamicPage.fetchDynamicPage(url);
+  const data = await fetchPage.fetchPage(url);
 
   const $ = cheerio.load(data);
 
@@ -45,7 +45,7 @@ exports.getEvents = async () => {
 
       return { title, date, location, link, source: url, hasTime: true };
     })
-    .filter(e => (e.location = "Stage AE"));
+    .filter(e => e.location === "Stage AE");
 
   return events;
 };
