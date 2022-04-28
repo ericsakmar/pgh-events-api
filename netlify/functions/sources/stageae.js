@@ -1,6 +1,5 @@
 const cheerio = require("cheerio");
 const chrono = require("chrono-node");
-const fetchPage = require("./fetchPage");
 const fetchDynamicPage = require("./fetchDynamicPage");
 
 const url = "https://promowestlive.com/pittsburgh/stage-ae";

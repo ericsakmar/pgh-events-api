@@ -6,6 +6,7 @@ const brillo = require("./sources/brillo.js");
 const clubcafe = require("./sources/clubcafe.js");
 const conAlmaDowntown = require("./sources/conalmaDowntown.js");
 const conAlmaEllsworth = require("./sources/conalmaEllsworth.js");
+const crafthouse = require("./sources/crafthouse.js");
 const governmentCenter = require("./sources/governmentcenter.js");
 const kingfly = require("./sources/kingfly.js");
 const preserving = require("./sources/preserving.js");
@@ -53,6 +54,7 @@ exports.handler = async function(event, _context) {
     getEvents(clubcafe),
     getEvents(conAlmaDowntown),
     getEvents(conAlmaEllsworth),
+    getEvents(crafthouse),
     getEvents(governmentCenter),
     getEvents(kingfly),
     getEvents(preserving),
