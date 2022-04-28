@@ -16,6 +16,7 @@ const roxian = require("./sources/roxian.js");
 const smalls = require("./sources/smalls.js");
 const spirit = require("./sources/sprirt.js");
 const stageae = require("./sources/stageae.js");
+const starlake = require("./sources/starlake.js");
 const thunderbird = require("./sources/thunderbird.js");
 
 require("dotenv").config();
@@ -65,6 +66,7 @@ exports.handler = async function(event, _context) {
     getEvents(smalls),
     getEvents(spirit),
     getEvents(stageae),
+    getEvents(starlake),
     getEvents(thunderbird)
   ]);
 
