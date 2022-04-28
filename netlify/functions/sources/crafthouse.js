@@ -22,7 +22,8 @@ exports.getEvents = async () => {
       const rawDate = n
         .find(".tribe-event-date-start")
         .text()
-        .trim();
+        .trim()
+        .replace("@", "at");
 
       const date = chrono.parseDate(rawDate, { timezone: "EDT" });
 
