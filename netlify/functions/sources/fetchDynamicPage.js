@@ -1,6 +1,10 @@
 const fetch = require("node-fetch");
+const AbortController = require("abort-controller");
 
 exports.fetchDynamicPage = async (url, waitForSelector) => {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), 9000);
+
   const res = await fetch(
     `https://pgh-events-api.netlify.app/.netlify/functions/page?url=${encodeURIComponent(
       url
@@ -9,9 +13,12 @@ exports.fetchDynamicPage = async (url, waitForSelector) => {
       method: "GET",
       headers: {
         Authorization: process.env.CLIENT_SECRET
-      }
+      },
+      signal: controller.signal
     }
   );
+
+  clearTimeout(id);
 
   const body = await res.text();
 
